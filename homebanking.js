@@ -18,38 +18,52 @@ window.onload = function() {
 }
 
 //Funciones que tenes que completar
-function sumarDinero (num){
-    saldoCuenta = num + saldoCuenta;
-} 
-
-function restarDinero(num){
-    saldoCuenta = saldoCuenta-num;
-}
 
 function cambiarLimiteDeExtraccion() {
-    var nvoLimiteDeExtraccion = parseInt(prompt('Ingrese por favor su nuevo límite de extracción'));
+    var nvoLimiteDeExtraccion = Number(prompt('Ingrese por favor su nuevo límite de extracción'));
+
+    // validación de valores introducidos: número , negativo, vacío
+
+    if (isNaN(nvoLimiteDeExtraccion)){
+        alert ('ingrese correctamente el monto');
+        return;
+    } else if (nvoLimiteDeExtraccion<0||nvoLimiteDeExtraccion === 0 ){
+        alert ('Monto no válido');
+        return;
+    } 
+
     limiteExtraccion = nvoLimiteDeExtraccion;
     alert ('su nuevo límite de extracción es   $' + nvoLimiteDeExtraccion);
     actualizarLimiteEnPantalla();
 } 
 
 function extraerDinero() {
-    var dineroARetirar = parseInt(prompt('Cuando dinero quiere retirar?'));
+    var dineroARetirar = Number(prompt('Cuando dinero quiere retirar?'));
+
+     // validación de valores introducidos: número , negativo, vacío
+
+    if (isNaN(dineroARetirar)){
+        alert ('ingrese correctamente el monto');
+        return;
+    } else if (dineroARetirar<0||dineroARetirar === 0){
+        alert ('Monto no válido')
+        return;
+    } else if ( dineroARetirar%100!==0) {
+        alert ('sólo puedes extraer billetes de 100');
+        return;
+    }
+    
     var saldoAnterior = saldoCuenta;
     var saldoActual = saldoCuenta - dineroARetirar;
     saldoCuenta = saldoActual;
     
     if (dineroARetirar > saldoAnterior){
-        alert ('Saldo insuficiente')
-        return;
+        alert ('No tiene saldo suficiente para realizar esta operación')
+        return;  
     } 
     if (limiteExtraccion < dineroARetirar){
        alert ('La cantidad de dinero que desea extraer es mayor a su límite de extracción')
        return;
-    } 
-    if ( dineroARetirar%100!==0) {
-        alert ('sólo puedes extraer billetes de 100');
-        return;
     } else if (saldoAnterior>dineroARetirar){
         alert ('has retirado:  $' + dineroARetirar + '\nsaldo anterior:  $' + saldoAnterior +' \nsaldo actual:  $'+ saldoActual );
     } else if (dineroARetirar<limiteExtraccion){
@@ -61,7 +75,18 @@ function extraerDinero() {
 
 
 function depositarDinero() {
-    var dineroADepositar = parseInt(prompt('Cuando dinero quiere depositar?'));
+    var dineroADepositar = Number(prompt('Cuando dinero quiere depositar?'));
+
+     // validación de valores introducidos: número , negativo, vacío
+
+    if (isNaN(dineroADepositar)){
+        alert ('ingrese correctamente el monto');
+        return;
+    } else if (dineroADepositar<0||dineroADepositar === 0){
+        alert ('Monto no válido')
+        return;
+    }
+
     var saldoAnterior = saldoCuenta;
     var saldoActual = dineroADepositar + saldoCuenta;
     saldoCuenta = saldoActual;
@@ -71,7 +96,18 @@ function depositarDinero() {
 
 
 function pagarServicio() {
-    var servicio = parseInt(prompt('Ingrese el nº que corresponda con el servicio que quiere pagar:  \n\n1.Agua \n2.Teléfono \n3.Luz \n4.Internet'));
+    var servicio = Number(prompt('Ingrese el nº que corresponda con el servicio que quiere pagar:  \n\n1.Agua \n2.Teléfono \n3.Luz \n4.Internet'));
+    
+     // validación de valores introducidos: número , negativo, vacío
+
+    if (isNaN(servicio)){
+        alert ('ingrese correctamente el nº del servicio');
+        return;
+    } else if (servicio<0 || servicio === 0){
+        alert ('Monto no válido')
+        return;
+    }
+
     var saldoActual;
     var servicioNombre = "";
     var servicioValor;
@@ -94,7 +130,8 @@ function pagarServicio() {
             servicioNombre = 'Internet';
             break;
         default:
-            alert ('ese servicio no existe');     
+            alert ('ese servicio no existe'); 
+            return;    
     }
 
     servicioValor = saldoCuenta - saldoActual;
@@ -109,7 +146,18 @@ function pagarServicio() {
 }
 
 function transferirDinero() {
-    var MontoATransferir = parseInt(prompt('Ingrese el monto que desea transferir'));
+    var MontoATransferir = Number(prompt('Ingrese el monto que desea transferir'));
+
+     // validación de valores introducidos: número , negativo, vacío
+
+    if (isNaN(MontoATransferir)){
+        alert ('ingrese correctamente el monto');
+        return;
+    } else if (MontoATransferir<0 || MontoATransferir === 0){
+        alert ('Monto no válido')
+        return;
+    }
+
     var verificacion = saldoCuenta-MontoATransferir;
     
     if (verificacion<0){
